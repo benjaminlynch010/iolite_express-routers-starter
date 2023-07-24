@@ -15,24 +15,13 @@ app.use(bodyParser.json());
 
 // Start server listening on PORT
 app.listen(PORT, () => {
-    console.log(`Server running on port: ${PORT}...`);
+    console.log(`🙉 Server running on port: ${PORT}...`);
 })
 
 // TODO - Move these routes to their own modules!
-app.get('/book', (req, res) => {
-    res.send(bookList);
-});
+const bookRouter = require('./routers/book.router.js')
 
-app.post('/book', (req, res) => {
-    bookList.push(req.body);
-    res.sendStatus(200);
-});
+app.use('/book', bookRouter)
 
-app.get('/movie', (req, res) => {
-  res.send(movieList);
-});
-
-app.post('/movie', (req, res) => {
-  movieList.push(req.body);
-  res.sendStatus(200);
-});
+const movieRouter = require('./routers/movie.router.js')
+app.use('/movie', movieRouter)
